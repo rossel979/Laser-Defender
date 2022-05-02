@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Wave Config", fileName = "New Wave Config")]
+[CreateAssetMenu(menuName = "Wave Config", fileName = "New Wave Config")] 
 public class WaveConfigSO : ScriptableObject
 {
     [SerializeField] Transform pathPrefab;
@@ -13,7 +13,7 @@ public class WaveConfigSO : ScriptableObject
         return pathPrefab.GetChild(0);
     }
 
-    public List<Transform> GetWaypoint()
+    public List<Transform> GetWaypoints()
     {
         List<Transform> waypoints = new List<Transform>();
         foreach(Transform child in pathPrefab)
@@ -22,7 +22,7 @@ public class WaveConfigSO : ScriptableObject
         }
         return waypoints;
     }
-    
+
     public float GetMoveSpeed()
     {
         return moveSpeed;
