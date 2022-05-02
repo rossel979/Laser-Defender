@@ -164,11 +164,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65bab918e2f6e264481ef7981e6c8be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  paddingLeft: 0
-  paddingRight: 0
-  paddingTop: 0
-  paddingBottom: 0
+  moveSpeed: 8
+  paddingLeft: 0.5
+  paddingRight: 0.5
+  paddingTop: 5
+  paddingBottom: 2
 --- !u!50 &-7772415884951018588
 Rigidbody2D:
   serializedVersion: 4
@@ -235,4 +235,5 @@ MonoBehaviour:
   projectileSpeed: 10
   projectileLifetime: 5
   firingRate: 0.2
+  useAI: 0
   isFiring: 0
