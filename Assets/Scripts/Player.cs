@@ -5,17 +5,25 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float fltmoveSpeed = 5f;
+    [SerializeField] float moveSpeed = 5f;
     Vector2 rawInput;
-    [SerializeField] float fltpaddingLeft;
-    [SerializeField] float fltpaddingRight;
-    [SerializeField] float fltpaddingTop;
-    [SerializeField] float fltpaddingBottom;
 
+    [SerializeField] float paddingLeft;
+    [SerializeField] float paddingRight;
+    [SerializeField] float paddingTop;
+    [SerializeField] float paddingBottom;
+    
     Vector2 minBounds;
     Vector2 maxBounds;
 
-    void Start() 
+    Shooter shooter;
+
+    void Awake()
+    {
+        shooter = GetComponent<Shooter>();
+    }
+
+    void Start()
     {
         InitBounds();
     }
@@ -25,25 +33,32 @@ public class Player : MonoBehaviour
         Move();
     }
 
-
     void InitBounds()
     {
         Camera mainCamera = Camera.main;
         minBounds = mainCamera.ViewportToWorldPoint(new Vector2(0,0));
         maxBounds = mainCamera.ViewportToWorldPoint(new Vector2(1,1));
     }
+
     void Move()
     {
-        Vector2 delta = rawInput * fltmoveSpeed * Time.deltaTime;
+        Vector2 delta = rawInput * moveSpeed * Time.deltaTime;
         Vector2 newPos = new Vector2();
-        newPos.x = Mathf.Clamp(transform.position.x + delta.x, minBounds.x + fltpaddingLeft, maxBounds.x - fltpaddingRight);
-        newPos.y = Mathf.Clamp(transform.position.y + delta.y, minBounds.y + fltpaddingBottom, maxBounds.y - fltpaddingTop);
+        newPos.x = Mathf.Clamp(transform.position.x + delta.x, minBounds.x + paddingLeft, maxBounds.x - paddingRight);
+        newPos.y = Mathf.Clamp(transform.position.y + delta.y, minBounds.y + paddingBottom, maxBounds.y - paddingTop);
         transform.position = newPos;
     }
 
     void OnMove(InputValue value)
     {
-       rawInput = value.Get<Vector2>();
-       Debug.Log(rawInput);
+        rawInput = value.Get<Vector2>();
+    }
+
+    void OnFire(InputValue value)
+    {
+        if(shooter != null)
+        {
+            shooter.isFiring = value.isPressed;
+        }
     }
 }
